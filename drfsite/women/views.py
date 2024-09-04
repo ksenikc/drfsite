@@ -11,16 +11,27 @@ from rest_framework.views import APIView
 #     queryset = Women.objects.all()
 #     serializer_class = WomenSerializer
 
-class WomenAPIView(APIView):
-    def get(self, request):
-        lst = Women.objects.all().values()
-        return Response({'posts': list(lst)})
+# class WomenAPIView(APIView):
+#     def get(self, request):
+#         lst = Women.objects.all().values()
+#         return Response({'posts': list(lst)})
+#
+#     def post(self, request):
+#         post_new = Women.objects.create(
+#             title=request.data['title'],
+#             content=request.data['content'],
+#             cat_id=request.data['cat_id']
+#         )
+#
+#         return Response({'post': model_to_dict(post_new)})
+class WomenAPIList(generics. ListCreateAPIView):
+    queryset = Women.objects.all()
+    serializer_class = WomenSerializer
 
-    def post(self, request):
-        post_new = Women.objects.create(
-            title=request.data['title'],
-            content=request.data['content'],
-            cat_id=request.data['cat_id']
-        )
+class WomenAPIUpdate(generics.UpdateAPIView):
+    queryset = Women.objects.all()
+    serializer_class = WomenSerializer
 
-        return Response({'post': model_to_dict(post_new)})
+class WomenAPIDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Women.objects.all()
+    serializer_class = WomenSerializer
